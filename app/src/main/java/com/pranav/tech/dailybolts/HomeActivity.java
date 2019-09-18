@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (pressTwice == true) {
+        if (pressTwice) {
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -76,6 +76,18 @@ public class HomeActivity extends AppCompatActivity {
                 pressTwice = false;
             }
         }, 2000);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //if the user is not logged in
+        //opening the login activity
+        if (FirebaseAuth.getInstance().getCurrentUser() == null) {
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
     @Override

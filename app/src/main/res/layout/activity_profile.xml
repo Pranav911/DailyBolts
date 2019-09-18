@@ -1,24 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
-
-    <TextView
-        android:id="@+id/textViewName"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:layout_gravity="center_horizontal"
+            android:text="NOTIFICATIONS"
+            android:layout_marginTop="100dp"/>
+
+        <Switch
+            android:id="@+id/quote_notif_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="40dp"
+            android:text="Quotes:"
+            android:checked="true"
+            android:textOff="OFF"
+            android:textOn="ON"/>
+        <Switch
+            android:id="@+id/fact_notif_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginLeft="100dp"
+            android:text="Facts:"
+            android:checked="true"
+            android:textOff="OFF"
+            android:textOn ="ON"/>
+        <Switch
+            android:id="@+id/shayari_notif_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginLeft="100dp"
+            android:text="Shayari:"
+            android:checked="true"
+            android:textOff="OFF"
+            android:textOn="ON"/>
+        <Switch
+            android:id="@+id/joke_notif_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginLeft="100dp"
+            android:text="Jokes:"
+            android:checked="true"
+            android:textOff="OFF"
+            android:textOn ="ON"/>
+        <Button
+            android:id="@+id/notif_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="Subscribe" />
+
+    </LinearLayout>
+</ScrollView>
