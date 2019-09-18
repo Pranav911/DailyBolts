@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories" />
+
+    <Button
+        android:id="@+id/quotesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quotes" />
+
+
+    <Button
+        android:id="@+id/factsBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Facts" />
+
+    <Button
+        android:id="@+id/jokesBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jokes" />
+
+    <Button
+        android:id="@+id/shayariBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Shayari" />
+
+</LinearLayout>

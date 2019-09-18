@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "852311968056",
+    "firebase_url": "https://dailybolt-22185.firebaseio.com",
+    "project_id": "dailybolt-22185",
+    "storage_bucket": "dailybolt-22185.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:852311968056:android:f42e89a88ddeec4d1559cd",
+        "android_client_info": {
+          "package_name": "com.pranav.tech.dailybolts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "852311968056-rqg9c37oa0m421pi8qv98ie326rjv51v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pranav.tech.dailybolts",
+            "certificate_hash": "1855ddac031053e551aa8641d773c786d9881b10"
+          }
+        },
+        {
+          "client_id": "852311968056-skggrobi737lsdrt78t2clri10ms4amo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe-SFeTKFtKCBLEYU6hjWakOGe_KLt5rI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "852311968056-skggrobi737lsdrt78t2clri10ms4amo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
