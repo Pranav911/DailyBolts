@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -37,9 +39,14 @@ public class InCategoryActivity extends AppCompatActivity {
         String choice = getIntent().getExtras().getString("choice");
         xod_tv = findViewById(R.id.in_cat_xod);
 
+
         DatabaseReference myRef = database.getReference("XOD");
 
         if(choice!=null) {
+            if (choice.equalsIgnoreCase("joke")) {
+                xod_tv.setGravity(Gravity.LEFT);
+                xod_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
+            }
             myRef.child(choice).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -101,7 +108,7 @@ public class InCategoryActivity extends AppCompatActivity {
             }
 
         });
-
+        Collections.reverse(mData);
         mListView.setAdapter(adapt);
     }
 }

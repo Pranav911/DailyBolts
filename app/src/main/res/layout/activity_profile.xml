@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FF869C86"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/textViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
         <TextView
             android:id="@+id/textViewEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_gravity="center_horizontal"
             android:text="NOTIFICATIONS"
+            android:textSize="25dp"
+            android:textStyle="bold"
             android:layout_marginTop="100dp"/>
 
         <Switch
@@ -40,8 +47,9 @@
             android:switchMinWidth="56dp"
             android:layout_marginLeft="100dp"
             android:layout_marginTop="40dp"
-            android:text="Quotes:"
+            android:text="Quotes     :"
             android:checked="true"
+            android:textColor="#ffffff"
             android:textOff="OFF"
             android:textOn="ON"/>
         <Switch
@@ -50,8 +58,20 @@
             android:layout_height="wrap_content"
             android:switchMinWidth="56dp"
             android:layout_marginLeft="100dp"
-            android:text="Facts:"
+            android:text="Facts        :"
             android:checked="true"
+            android:textColor="#ffffff"
+            android:textOff="OFF"
+            android:textOn ="ON"/>
+        <Switch
+            android:id="@+id/joke_notif_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:switchMinWidth="56dp"
+            android:layout_marginLeft="100dp"
+            android:text="Jokes        :"
+            android:checked="true"
+            android:textColor="#ffffff"
             android:textOff="OFF"
             android:textOn ="ON"/>
         <Switch
@@ -60,20 +80,11 @@
             android:layout_height="wrap_content"
             android:switchMinWidth="56dp"
             android:layout_marginLeft="100dp"
-            android:text="Shayari:"
+            android:text="Shayari     :"
             android:checked="true"
+            android:textColor="#ffffff"
             android:textOff="OFF"
             android:textOn="ON"/>
-        <Switch
-            android:id="@+id/joke_notif_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:switchMinWidth="56dp"
-            android:layout_marginLeft="100dp"
-            android:text="Jokes:"
-            android:checked="true"
-            android:textOff="OFF"
-            android:textOn ="ON"/>
         <Button
             android:id="@+id/notif_save"
             android:layout_width="wrap_content"
