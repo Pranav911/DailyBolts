@@ -57,7 +57,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     snackbar.dismiss();
                 }
             });
-            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.setActionTextColor(Color.GRAY);
             snackbar.show();
         }
     }
@@ -77,7 +77,10 @@ public class RegistrationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
             return;
         }
-
+        if(password.length()<6){
+            Toast.makeText(getApplicationContext(), "Password must be atleast 6 characters long", Toast.LENGTH_LONG).show();
+            return;
+        }
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

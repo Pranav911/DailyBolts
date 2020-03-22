@@ -110,7 +110,7 @@ public class InCategoryActivity extends AppCompatActivity {
                     snackbar.dismiss();
                 }
             });
-            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.setActionTextColor(Color.GRAY);
             snackbar.show();
         }
     }

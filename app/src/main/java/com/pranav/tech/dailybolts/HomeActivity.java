@@ -119,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
 
         // Subscribe for very first time app is run
         SharedPreferences prefs = getSharedPreferences("com.pranav.tech.dailybolts.FirstRunCheck", Context.MODE_PRIVATE);
-        if (prefs.getBoolean("firstrun", true)) {
+        if (prefs.getBoolean("firstrun", true) && ConnectionManagement.isConnected(this)) {
             setSubNotifValues();
             if (quote_check)
                 subscribeNotification("quote", null);
@@ -142,7 +142,7 @@ public class HomeActivity extends AppCompatActivity {
                     snackbar.dismiss();
                 }
             });
-            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.setActionTextColor(Color.GRAY);
             snackbar.show();
         }
     }
