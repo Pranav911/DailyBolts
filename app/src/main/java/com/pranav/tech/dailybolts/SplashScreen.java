@@ -1,13 +1,14 @@
 package com.pranav.tech.dailybolts;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.MobileAds;
 import com.pranav.tech.dailybolts.User.LoginActivity;
 
 public class SplashScreen extends AppCompatActivity {
@@ -16,6 +17,9 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        MobileAds.initialize(this, "ca-app-pub-6104835133508466/1405541974");
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
