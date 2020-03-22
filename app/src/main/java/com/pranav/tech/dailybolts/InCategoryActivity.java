@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -20,12 +21,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.pranav.tech.dailybolts.Utility.ConnectionManagement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +48,8 @@ public class InCategoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_in_category);
 
+        checkInternetSnack();
+
         String choice = getIntent().getExtras().getString("choice");
         xod_tv = findViewById(R.id.in_cat_xod);
 
@@ -52,12 +57,12 @@ public class InCategoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapse_toolbar);
-        collapsingToolbarLayout.setTitle(choice+"s");
+        collapsingToolbarLayout.setTitle(choice + "s");
         finalChoice = choice.toUpperCase();
         choice = choice.toLowerCase();
         DatabaseReference myRef = database.getReference("XOD");
 
-        if(!choice.equals("")) {
+        if (!choice.equals("")) {
             if (choice.equalsIgnoreCase("joke")) {
                 xod_tv.setGravity(Gravity.LEFT);
                 xod_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
@@ -89,10 +94,24 @@ public class InCategoryActivity extends AppCompatActivity {
 
             history_list_handler(choice);
 
-        } else{
+        } else {
             Toast.makeText(this, "Invalid category selected", Toast.LENGTH_SHORT).show();
             finish();
             startActivity(new Intent(InCategoryActivity.this, HomeActivity.class));
+        }
+    }
+
+    private void checkInternetSnack() {
+        if (!ConnectionManagement.isConnected(this)) {
+            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No Internet connection!!", Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.show();
         }
     }
 
@@ -103,7 +122,7 @@ public class InCategoryActivity extends AppCompatActivity {
         adapt = new SimpleAdapter(this, mData, R.layout.tiles, from, to);
         mListView = findViewById(R.id.simpleListView);
 
-        DatabaseReference prevRef = database.getReference(choice+"_history");
+        DatabaseReference prevRef = database.getReference(choice + "_history");
         prevRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -144,7 +163,7 @@ public class InCategoryActivity extends AppCompatActivity {
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, finalChoice);
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent,"Share using... "));
+                startActivity(Intent.createChooser(sharingIntent, "Share using... "));
             }
         });
     }

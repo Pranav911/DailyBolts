@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -32,16 +33,27 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.pranav.tech.dailybolts.User.LoginActivity;
+import com.pranav.tech.dailybolts.Utility.ConnectionManagement;
 
 public class HomeActivity extends AppCompatActivity {
 
     private boolean pressTwice;
     private Menu menu;
     private InterstitialAd mInterstitialAd;
+    private boolean quote_check, fact_check, joke_check, shayari_check;
+
+    private void setSubNotifValues() {
+        SharedPreferences sharedPreferences = getSharedPreferences("com.pranav.tech.dailybolts.Notifications", Context.MODE_PRIVATE);
+        quote_check = sharedPreferences.getBoolean("quote", true);
+        fact_check = sharedPreferences.getBoolean("fact", true);
+        joke_check = sharedPreferences.getBoolean("joke", true);
+        shayari_check = sharedPreferences.getBoolean("shayari", true);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +62,8 @@ public class HomeActivity extends AppCompatActivity {
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {}
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
         });
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId("ca-app-pub-6104835133508466/1405541974");
@@ -101,6 +114,37 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        checkInternetSnack();
+
+        // Subscribe for very first time app is run
+        SharedPreferences prefs = getSharedPreferences("com.pranav.tech.dailybolts.FirstRunCheck", Context.MODE_PRIVATE);
+        if (prefs.getBoolean("firstrun", true)) {
+            setSubNotifValues();
+            if (quote_check)
+                subscribeNotification("quote", null);
+            if (fact_check)
+                subscribeNotification("fact", null);
+            if (joke_check)
+                subscribeNotification("joke", null);
+            if (shayari_check)
+                subscribeNotification("shayari", null);
+            prefs.edit().putBoolean("firstrun", false).apply();
+        }
+    }
+
+    private void checkInternetSnack() {
+        if (!ConnectionManagement.isConnected(this)) {
+            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No Internet connection!!", Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.show();
+        }
     }
 
     @Override
@@ -119,7 +163,7 @@ public class HomeActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    private void exitApp(){
+    private void exitApp() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -152,10 +196,10 @@ public class HomeActivity extends AppCompatActivity {
         FrameLayout rootView = (FrameLayout) alertMenuItem.getActionView();
         ImageView at = rootView.findViewById(R.id.avatar);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null && user.getDisplayName()!=null && !user.getDisplayName().equals("")){
-                Glide.with(this)
-                        .load(user.getPhotoUrl())
-                        .into(at);
+        if (user != null && user.getDisplayName() != null && !user.getDisplayName().equals("")) {
+            Glide.with(this)
+                    .load(user.getPhotoUrl())
+                    .into(at);
         }
         rootView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,7 +212,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.ads:
                 if (mInterstitialAd.isLoaded()) {
@@ -281,13 +325,8 @@ public class HomeActivity extends AppCompatActivity {
         final Switch sher_switch = dialog.findViewById(R.id.shayari_notif_switch);
         final Switch fact_switch = dialog.findViewById(R.id.fact_notif_switch);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("com.pranav.tech.dailybolts.Notifications", Context.MODE_PRIVATE);
-        boolean quote_check = sharedPreferences.getBoolean("quote", true);
-        boolean fact_check = sharedPreferences.getBoolean("fact", true);
-        boolean joke_check = sharedPreferences.getBoolean("joke", true);
-        boolean shayari_check = sharedPreferences.getBoolean("shayari", true);
-
         // Populating with old values
+        setSubNotifValues();
         quote_switch.setChecked(quote_check);
         fact_switch.setChecked(fact_check);
         joke_switch.setChecked(joke_check);
@@ -306,9 +345,9 @@ public class HomeActivity extends AppCompatActivity {
         final TextView textEmail = dialog.findViewById(R.id.textViewEmail);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        if(user!=null){
+        if (user != null) {
             String name = user.getDisplayName();
-            if(name!=null && !name.equals("")){
+            if (name != null && !name.equals("")) {
                 Glide.with(this)
                         .load(user.getPhotoUrl())
                         .into(imageView);
@@ -318,7 +357,7 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    private void checkSwitch(Switch mySwitch, final String topicName){
+    private void checkSwitch(Switch mySwitch, final String topicName) {
         final SharedPreferences.Editor editor = getSharedPreferences("com.pranav.tech.dailybolts.Notifications", Context.MODE_PRIVATE).edit();
         mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -337,13 +376,14 @@ public class HomeActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
                             Toast.makeText(HomeActivity.this, "Subscription Failed.. Please check your internet connection!!", Toast.LENGTH_SHORT).show();
-                        } else{
+                        } else {
                             Toast.makeText(HomeActivity.this, topicName + " subscribed successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-        editor.putBoolean(topicName, true).apply();
+        if (editor != null)
+            editor.putBoolean(topicName, true).apply();
     }
 
     private void unsubscribeNotification(final String topicName, SharedPreferences.Editor editor) {
@@ -353,12 +393,13 @@ public class HomeActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (!task.isSuccessful()) {
                             Toast.makeText(HomeActivity.this, "Failed to unsubscribe.. Please check your internet connection!!", Toast.LENGTH_SHORT).show();
-                        } else{
+                        } else {
                             Toast.makeText(HomeActivity.this, topicName + " unsubscribed successfully", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        editor.putBoolean(topicName, false).apply();
+        if (editor != null)
+            editor.putBoolean(topicName, false).apply();
     }
 
 }

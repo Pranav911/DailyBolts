@@ -1,9 +1,7 @@
 package com.pranav.tech.dailybolts.User;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,11 +10,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.pranav.tech.dailybolts.R;
+import com.pranav.tech.dailybolts.Utility.ConnectionManagement;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -31,6 +34,8 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
+        checkInternetSnack();
+
         mAuth = FirebaseAuth.getInstance();
 
         initializeUI();
@@ -41,6 +46,20 @@ public class RegistrationActivity extends AppCompatActivity {
                 registerNewUser();
             }
         });
+    }
+
+    private void checkInternetSnack() {
+        if (!ConnectionManagement.isConnected(this)) {
+            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No Internet connection!!", Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.show();
+        }
     }
 
     private void registerNewUser() {
@@ -70,8 +89,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                             finish();
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }

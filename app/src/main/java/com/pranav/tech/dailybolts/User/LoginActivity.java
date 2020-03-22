@@ -3,6 +3,7 @@ package com.pranav.tech.dailybolts.User;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.pranav.tech.dailybolts.HomeActivity;
 import com.pranav.tech.dailybolts.R;
+import com.pranav.tech.dailybolts.Utility.ConnectionManagement;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
+        checkInternetSnack();
 
+        mAuth = FirebaseAuth.getInstance();
         initializeUI();
 
         SharedPreferences sharedPreferences = getSharedPreferences("LoginData", Context.MODE_PRIVATE);
@@ -96,6 +99,20 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    private void checkInternetSnack() {
+        if (!ConnectionManagement.isConnected(this)) {
+            final Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "No Internet connection!!", Snackbar.LENGTH_INDEFINITE);
+            snackbar.setAction("Dismiss", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            });
+            snackbar.setActionTextColor(Color.CYAN);
+            snackbar.show();
+        }
     }
 
     @Override
@@ -187,8 +204,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                             openProfile();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Login failed! Please try again later", Toast.LENGTH_LONG).show();
                             progressBar.setVisibility(View.GONE);
                         }
@@ -200,13 +216,13 @@ public class LoginActivity extends AppCompatActivity {
         email = findViewById(R.id.email_edit);
         pass = findViewById(R.id.password_edit);
         remember = findViewById(R.id.remember_me);
-        login_btn=findViewById(R.id.login_btn);
-        signup_btn=findViewById(R.id.signup_btn);
+        login_btn = findViewById(R.id.login_btn);
+        signup_btn = findViewById(R.id.signup_btn);
         progressBar = findViewById(R.id.progress_login);
     }
 
-    private void openProfile(){
-        Toast.makeText(LoginActivity.this,"LoginActivity Successfully",Toast.LENGTH_LONG).show();
+    private void openProfile() {
+        Toast.makeText(LoginActivity.this, "LoginActivity Successfully", Toast.LENGTH_LONG).show();
         if (remember.isChecked()) {
             if (!email.getText().equals(null) && !pass.getText().equals(null)) {
                 SharedPreferences sharedPreferences = getSharedPreferences("LoginData", Context.MODE_PRIVATE);
