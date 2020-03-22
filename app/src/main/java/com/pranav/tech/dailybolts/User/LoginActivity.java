@@ -187,11 +187,19 @@ public class LoginActivity extends AppCompatActivity {
         emailId = email.getText().toString().trim();
         password = pass.getText().toString().trim();
 
+        if(!ConnectionManagement.isConnected(this)){
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (TextUtils.isEmpty(emailId)) {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
             return;
         }

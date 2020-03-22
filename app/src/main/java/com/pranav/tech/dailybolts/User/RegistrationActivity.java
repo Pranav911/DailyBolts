@@ -69,15 +69,23 @@ public class RegistrationActivity extends AppCompatActivity {
         email = emailTV.getText().toString().trim();
         password = passwordTV.getText().toString().trim();
 
+        if(!ConnectionManagement.isConnected(this)){
+            progressBar.setVisibility(View.GONE);
+            Toast.makeText(getApplicationContext(), "Please check your internet connection", Toast.LENGTH_LONG).show();
+            return;
+        }
         if (TextUtils.isEmpty(email)) {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
             return;
         }
         if(password.length()<6){
+            progressBar.setVisibility(View.GONE);
             Toast.makeText(getApplicationContext(), "Password must be atleast 6 characters long", Toast.LENGTH_LONG).show();
             return;
         }
