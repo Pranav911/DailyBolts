@@ -3,6 +3,7 @@ package com.pranav.tech.dailybolts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,12 +25,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class InCategoryActivity extends AppCompatActivity {
 
     TextView xod_tv;
     ListView mListView;
-    ArrayAdapter adapt;
+    SimpleAdapter adapt;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -39,7 +43,13 @@ public class InCategoryActivity extends AppCompatActivity {
         String choice = getIntent().getExtras().getString("choice");
         xod_tv = findViewById(R.id.in_cat_xod);
 
+        Toolbar toolbar = findViewById(R.id.myToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapse_toolbar);
+        collapsingToolbarLayout.setTitle(choice);
 
+        choice = choice.toLowerCase();
         DatabaseReference myRef = database.getReference("XOD");
 
         if(choice!=null) {
@@ -71,8 +81,10 @@ public class InCategoryActivity extends AppCompatActivity {
     }
 
     private void previous_list_handler(String choice) {
-        final ArrayList<String> mData = new ArrayList<>();
-        adapt = new ArrayAdapter(this, android.R.layout.simple_list_item_1, mData);
+        final ArrayList<HashMap<String, String>> mData = new ArrayList<>();
+        String[] from = new String[]{"content"};
+        int[] to = new int[]{R.id.list_text};
+        adapt = new SimpleAdapter(this, mData, R.layout.tiles, from, to);
         mListView = findViewById(R.id.simpleListView);
 
         DatabaseReference prevRef = database.getReference(choice+"_history");
@@ -80,9 +92,10 @@ public class InCategoryActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 String value = dataSnapshot.getValue(String.class);
-
+                HashMap<String, String> extract = new HashMap<String, String>();
+                extract.put("content", value);
                 Collections.reverse(mData);
-                mData.add(value);
+                mData.add(extract);
                 Collections.reverse(mData);
                 adapt.notifyDataSetChanged();
             }

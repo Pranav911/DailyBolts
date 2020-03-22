@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.pranav.tech.dailybolts.User.LoginActivity;
+import com.pranav.tech.dailybolts.User.ProfileActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,35 +25,35 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        findViewById(R.id.quotesBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.quotes_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, InCategoryActivity.class);
-                i.putExtra("choice", "quote");
+                i.putExtra("choice", "Quote");
                 startActivity(i);
             }
         });
-        findViewById(R.id.factsBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.facts_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, InCategoryActivity.class);
-                i.putExtra("choice", "fact");
+                i.putExtra("choice", "Fact");
                 startActivity(i);
             }
         });
-        findViewById(R.id.jokesBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.jokes_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, InCategoryActivity.class);
-                i.putExtra("choice", "joke");
+                i.putExtra("choice", "Joke");
                 startActivity(i);
             }
         });
-        findViewById(R.id.shayariBtn).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.shayari_card).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(HomeActivity.this, InCategoryActivity.class);
-                i.putExtra("choice", "shayari");
+                i.putExtra("choice", "Shayari");
                 startActivity(i);
             }
         });

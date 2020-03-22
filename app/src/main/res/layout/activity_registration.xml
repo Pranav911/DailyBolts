@@ -2,11 +2,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="16dp"
-    tools:context=".RegistrationActivity"
+    tools:context=".User.RegistrationActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
-    android:background="#FF869C86">
+    android:background="@drawable/bgg">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -19,10 +19,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="80dp"
-            android:textColor="#055206"
             android:textSize="30dp"
             android:textStyle="bold"
-            android:text="Register New Account" />
+            android:text="REGISTER" />
 
         <EditText
             android:id="@+id/email"

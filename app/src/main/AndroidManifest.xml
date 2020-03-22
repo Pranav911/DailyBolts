@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.pranav.tech.dailybolts">
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.pranav.tech.dailybolts.Firebase.MyFirebaseApp"
@@ -10,12 +13,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InCategoryActivity"/>
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreen">
+        <activity android:name=".InCategoryActivity"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".User.ProfileActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".HomeActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".User.RegistrationActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".User.LoginActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".SplashScreen"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +46,5 @@
             </intent-filter>
         </service>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

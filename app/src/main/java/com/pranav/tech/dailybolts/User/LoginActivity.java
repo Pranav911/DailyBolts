@@ -1,4 +1,4 @@
-package com.pranav.tech.dailybolts;
+package com.pranav.tech.dailybolts.User;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.pranav.tech.dailybolts.HomeActivity;
+import com.pranav.tech.dailybolts.R;
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -2,51 +2,135 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF869C86"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bgg"
     android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:layout_margin="20dp">
+        android:layout_margin="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="80dp"
-            android:text="CATEGORIES"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/quotesBtn"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/quotes_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quotes" />
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="4dp">
 
-        <Button
-            android:id="@+id/factsBtn"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/quotes"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quotes"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp"
+                    android:textStyle="bold|italic"  />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/facts_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Facts" />
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="4dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/facts"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Facts"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp"
+                    android:textStyle="bold|italic"  />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
 
-        <Button
-            android:id="@+id/jokesBtn"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/jokes_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Jokes" />
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="4dp">
 
-        <Button
-            android:id="@+id/shayariBtn"
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/jokes"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Jokes"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp"
+                    android:textStyle="bold|italic"  />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/shayari_card"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Shayari" />
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="4dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/shayari"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Shayari"
+                    android:layout_centerInParent="true"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp"
+                    android:textStyle="bold|italic"  />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 </ScrollView>

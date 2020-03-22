@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.pranav.tech.dailybolts.User.LoginActivity;
+
 public class SplashScreen extends AppCompatActivity {
 
     @Override
