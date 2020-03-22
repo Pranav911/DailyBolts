@@ -5,11 +5,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -32,6 +36,7 @@ public class InCategoryActivity extends AppCompatActivity {
     TextView xod_tv;
     ListView mListView;
     SimpleAdapter adapt;
+    String finalChoice;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -47,12 +52,12 @@ public class InCategoryActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.collapse_toolbar);
-        collapsingToolbarLayout.setTitle(choice);
-
+        collapsingToolbarLayout.setTitle(choice+"s");
+        finalChoice = choice.toUpperCase();
         choice = choice.toLowerCase();
         DatabaseReference myRef = database.getReference("XOD");
 
-        if(choice!=null) {
+        if(!choice.equals("")) {
             if (choice.equalsIgnoreCase("joke")) {
                 xod_tv.setGravity(Gravity.LEFT);
                 xod_tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18f);
@@ -71,7 +76,18 @@ public class InCategoryActivity extends AppCompatActivity {
                 }
             });
 
-            previous_list_handler(choice);
+            xod_tv.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                    ClipData clip = ClipData.newPlainText(finalChoice, xod_tv.getText());
+                    clipboard.setPrimaryClip(clip);
+                    Toast.makeText(InCategoryActivity.this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                    return true;
+                }
+            });
+
+            history_list_handler(choice);
 
         } else{
             Toast.makeText(this, "Invalid category selected", Toast.LENGTH_SHORT).show();
@@ -80,7 +96,7 @@ public class InCategoryActivity extends AppCompatActivity {
         }
     }
 
-    private void previous_list_handler(String choice) {
+    private void history_list_handler(String choice) {
         final ArrayList<HashMap<String, String>> mData = new ArrayList<>();
         String[] from = new String[]{"content"};
         int[] to = new int[]{R.id.list_text};
@@ -102,26 +118,34 @@ public class InCategoryActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
 
         });
         Collections.reverse(mData);
         mListView.setAdapter(adapt);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String shareBody = mData.get(position).get("content");
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, finalChoice);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent,"Share using... "));
+            }
+        });
     }
 }
