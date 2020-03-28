@@ -37,13 +37,13 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.pranav.tech.dailybolts.InCategory.InCategoryActivity;
 import com.pranav.tech.dailybolts.User.LoginActivity;
 import com.pranav.tech.dailybolts.Utility.ConnectionManagement;
 
 public class HomeActivity extends AppCompatActivity {
 
     private boolean pressTwice;
-    private Menu menu;
     private InterstitialAd mInterstitialAd;
     private boolean quote_check, fact_check, joke_check, shayari_check;
 
@@ -185,8 +185,7 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home, menu);
-        this.menu = menu;
+        getMenuInflater().inflate(R.menu.menu_home, menu);
         return true;
     }
 
@@ -286,7 +285,7 @@ public class HomeActivity extends AppCompatActivity {
     private void profileDialog() {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.profile_dialog);
+        dialog.setContentView(R.layout.dialog_profile);
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         lp.copyFrom(dialog.getWindow().getAttributes());
         lp.width = WindowManager.LayoutParams.MATCH_PARENT;

@@ -16,7 +16,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_id"/>
-        <activity android:name=".InCategoryActivity"
+        <activity android:name=".InCategory.InCategoryActivity"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
